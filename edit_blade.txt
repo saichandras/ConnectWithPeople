@@ -1,0 +1,173 @@
+@extends('layouts.app')
+
+@section('content')
+    <div class="container">
+        <form action="/profile/{{ $user->id }}" enctype="multipart/form-data" method="post">
+            @csrf
+            @method('PATCH')
+            <div class="col">
+                <div class="row">
+                    <div class="col mb-3">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="e-profile">
+                                    <div class="row">
+                                        <div class="col-12 col-sm-auto mb-3">
+                                            <div class="mx-auto" style="width: 140px;">
+                                                <div class="d-flex justify-content-center align-items-center rounded"
+                                                    style="height: 140px; background-color: rgb(233, 236, 239);">
+                                                    <img src="https://scontent-atl3-1.cdninstagram.com/v/t51.2885-19/s320x320/90089978_528692994696981_1094372613506990080_n.jpg?_nc_ht=scontent-atl3-1.cdninstagram.com&_nc_ohc=PNXI3q0mP_EAX8CooQs&oh=8098918477624d878b06d1c82af232ba&oe=5F0CB993" alt="Profile Pic" class="w-100 img-thumbnail">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div
+                                            class="col d-flex flex-column flex-sm-row justify-content-between mb-3">
+                                            <div class="text-center text-sm-left mb-2 mb-sm-0">
+                                                <h4 class="pt-sm-2 pb-1 mb-0 text-nowrap">{{$user->name}}</h4>
+                                                <p class="mb-0"><span>@</span>{{$user->username}}</p>
+                                                <div class="mt-2">
+                                                    <button class="btn btn-primary" type="button">
+                                                        <i class="fa fa-fw fa-camera"></i>
+                                                        <span>Change Photo</span>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <div class="text-center text-sm-right">
+                                                <div class="text-muted"><small><span>Joined</span> {{ isset(Auth::user()->created_at) ? Auth::user()->created_at->toDateString() : Auth::user()->email }}
+                                                    </small></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tab-content pt-3">
+                                        <div class="tab-pane active">
+                                            <div class="row">
+                                                <div class="col">
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <div class="form-group">
+                                                                <label>Name</label>
+                                                                <input class="form-control" type="text"
+                                                                       name="name">
+                                                                @error('name')
+                                                                <span class="invalid-feedback" role="alert">
+                                                                            <strong>{{ $message }}</strong>
+                                                                        </span>
+                                                                @enderror
+
+                                                            </div>
+                                                        </div>
+                                                        <div class="col">
+                                                            <div class="form-group">
+                                                                <label>Username</label>
+                                                                <input class="form-control" type="text"
+                                                                       name="username">
+                                                                @error('username')
+                                                                <span class="invalid-feedback" role="alert">
+                                                                            <strong>{{ $message }}</strong>
+                                                                        </span>
+                                                                @enderror
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <div class="form-group">
+                                                                <label>Email</label>
+                                                                <input class="form-control" type="email"
+                                                                       placeholder="user@example.com">
+                                                                @error('email')
+                                                                <span class="invalid-feedback" role="alert">
+                                                                            <strong>{{ $message }}</strong>
+                                                                        </span>
+                                                                @enderror
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <div class="form-group">
+                                                                <label>Description</label>
+                                                                <textarea class="form-control" rows="5">{{ old('description') ?? $user->profile->description }}</textarea>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row">
+                                                        <div class="col mb-3">
+                                                            <div class="form-group">
+                                                                <label>URL</label>
+                                                                <input class="form-control" type="url"
+                                                                       value="{{ old('url') ?? $user->profile->url }}">
+                                                                @error('url')
+                                                                <span class="invalid-feedback" role="alert">
+                                                                            <strong>{{ $message }}</strong>
+                                                                        </span>
+                                                                @enderror
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-12 col-sm-6 mb-3">
+                                                    <div class="mb-2"><b>Change Password</b></div>
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <div class="form-group">
+                                                                <label>Current Password</label>
+                                                                <input class="form-control" type="password"
+                                                                       placeholder="••••••">
+                                                                @error('current password')
+                                                                <span class="invalid-feedback" role="alert">
+                                                                            <strong>{{ $message }}</strong>
+                                                                        </span>
+                                                                @enderror
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <div class="form-group">
+                                                                <label>New Password</label>
+                                                                <input class="form-control" type="password"
+                                                                       placeholder="••••••">
+                                                                @error('new password')
+                                                                <span class="invalid-feedback" role="alert">
+                                                                            <strong>{{ $message }}</strong>
+                                                                        </span>
+                                                                @enderror
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <div class="form-group">
+                                                                <label>Confirm <span
+                                                                        class="d-none d-xl-inline">Password</span></label>
+                                                                <input class="form-control" type="password"
+                                                                       placeholder="••••••"></div>
+                                                            @error('confirm password')
+                                                            <span class="invalid-feedback" role="alert">
+                                                                                <strong>{{ $message }}</strong>
+                                                            </span>
+                                                            @enderror
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col d-flex justify-content-end">
+                                                    <button class="btn btn-primary" type="submit">Save Changes</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+@endsection
